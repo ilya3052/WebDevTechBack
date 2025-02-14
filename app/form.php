@@ -2,7 +2,7 @@
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $courier_name = trim($_POST['name'] ?? '');
             $client_name = trim($_POST['client'] ?? '');
-            $client_mail = trim($_POST['mail'] ?? '');
+            $client_mail = trim($_POST['client_mail'] ?? '');
             $product = trim($_POST['product'] ?? '');
             $product_price = trim($_POST['product_price'] ?? '');
             $address = trim($_POST['address'] ?? '');
