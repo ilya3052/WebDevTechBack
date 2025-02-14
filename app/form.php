@@ -9,7 +9,7 @@
             $date = trim($_POST['date'] ?? '');
             $delivery_price = trim($_POST['delivery_price'] ?? '');
 
-            $csv_file = 'data.csv';
+            $csvFile = 'data.csv';
             $dataRow = [
                 $courier_name,
                 $client_name,
