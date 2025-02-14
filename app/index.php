@@ -6,10 +6,9 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Курьерская служба</h1>
     <div class="container">
       <div class="text">
-         Contact us Form
+         Курьерская служба
       </div>
       <form action="form.php" method="POST">
          <div class="form-row">
