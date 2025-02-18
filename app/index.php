@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        .client_name_error, .courier_name_error, .email_error, .entrance_error, .apartment_error, .floor_error {
+        .client_name_error, .courier_name_error, .email_error, .entrance_error, .apartment_error, .floor_error, .house_error {
             color: red;
             margin: 0;
         }
@@ -43,8 +43,9 @@
         <input type="text" name="street" id="street" required>
         <br><br>
         <label for="house">Дом*</label>
-        <input type="number" name="house" id="house" required min="1">
-        <br><br>
+        <input type="text" name="house" id="house" required>
+        <p class="house_error"></p>
+        <br>
         <label for="entrance">Подъезд</label>
         <input type="number" name="entrance" id="entrance">
         <p class="entrance_error"></p>
