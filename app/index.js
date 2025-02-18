@@ -6,11 +6,11 @@ const hasNumber = (str) => {
 }
 
 const hasLetter = (str) => {
-    return /[a-zA-Z]/.test(str);
+    return /[a-zA-Zа-яА-Я]/u.test(str);
 }
 
 const hasSpecial = (str) => {
-    return /[^a-zA-Z0-9]/.test(str);
+    return /[^a-zA-Z0-9а-яА-Я]/u.test(str);
 }
 
 const client_name = document.getElementById('client_name');
