@@ -1,26 +1,116 @@
 <?php
+    $white_list_email_domains = ["yandex.ru", "yandex.by", "yandex.kz", "ya.ru", "mail.ru", "internet.ru", "list.ru", "bk.ru", "inbox.ru", "vk.com", 
+    "rambler.ru"];
+    function hasNumber($str) {
+        return preg_match('/\d/', $str) !== 1;
+    }
+
+    function hasLetter($str) {
+        return preg_match('/[a-zA-Z]/', $str) !== 1;
+    }
+    function isValidEmail($email) {
+        return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
+    }
+    function isValidEmailDomain($email) {
+        $domain = explode('@', $email)[1];
+        return in_array($domain, $white_list_email_domains);
+    }
+    function isValidPhoneNumber($phone) {
+        $phone = preg_replace('/\D/', '', $phone);
+        if (substr($phone, 0, 1) !== '7') {
+            return false;
+        }
+        if (strlen($phone) !== 10) {
+            return false;
+        }
+        return true;
+    }            
+?>
+
+
+<?php
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $courier_name = trim($_POST['name'] ?? '');
-        $client_name = trim($_POST['client'] ?? '');
+        $client_name = trim($_POST['client_name'] ?? '');
+        $client_phone = trim($_POST['client_phone'] ?? '');
         $client_mail = trim($_POST['client_mail'] ?? '');
+        $courier_name = trim($_POST['courier_name'] ?? '');
+
         $product = trim($_POST['product'] ?? '');
         $product_price = trim($_POST['product_price'] ?? '');
-        $address = trim($_POST['address'] ?? '');
-        $date = trim($_POST['date'] ?? '');
-        $delivery_price = trim($_POST['delivery_price'] ?? '');
 
+        $city = trim($_POST['city'] ?? '');
+        $street = trim($_POST['street'] ?? '');
+        $house = trim($_POST['house'] ?? '');
+
+        $entrance = trim($_POST['entrance'] ?? '');
+        $apartment = trim($_POST['apartment'] ?? '');
+        $floor = trim($_POST['floor'] ?? '');
+        $intercome_code = trim($_POST['intercome_code'] ?? '');
+
+        $delivery_date = trim($_POST['delivery_date'] ?? '');
+        $delivery_price = trim($_POST['delivery_price'] ?? '');
+        $errors = [];
+        if (empty($client_name) || strlen($client_name) > 100 || !hasNumber($client_name)) {
+            $errors[] = 'Укажите корректное имя клиента';
+        }
+        if (empty($client_phone) || !isValidPhoneNumber($client_phone)) {
+            $errors[] = 'Укажите корректный номер телефона';
+        }
+        if (empty($courier_name) || strlen($courier_name) > 100 || !hasNumber($courier_name)) {
+            $errors[] = 'Укажите имя курьера';
+        }
+        if (empty($product)) {
+            $errors[] = 'Укажите название товара';
+        }
+        if (empty($product_price) || !hasLetter($product_price) || $product_price < 1) {
+            $errors[] = 'Укажите корректную цену';
+        }
+        if (empty($city)) {
+            $errors[] = 'Укажите город';
+        }
+        if (empty($street)) {
+            $errors[] = 'Укажите улицу';
+        }   
+        if (empty($house)) {
+            $errors[] = 'Укажите номер дома';
+        }   
+        if ((strlen($entrance) > 0 && $entrance < 1) || !hasLetter($entrance)) {
+            $errors[] = 'Укажите корректный номер подъезда';
+        }
+        if ((strlen($apartment) > 0 && $apartment < 1) || !hasLetter($apartment)) {
+            $errors[] = 'Укажите корректный номер квартиры';
+        }
+        if ((strlen($floor) > 0 && $floor < 1) || !hasLetter($floor)) {
+            $errors[] = 'Укажите корректный этаж';
+        }
+        if (empty($delivery_date)) {
+            $errors[] = 'Укажите дату доставки';
+        }
+        if (empty($delivery_price) || $delivery_price < 1 || !hasLetter($delivery_price)) {
+            $errors[] = 'Укажите корректную цену доставки';
+        }
         $csvFile = 'data.csv';
         $dataRow = [
-            $courier_name,
             $client_name,
+            $client_phone,
             $client_mail,
+            $courier_name,
             $product,
             $product_price,
-            $address,
-            $date,
+            $city,
+            $street,
+            $house,
+            $entrance,
+            $apartment,
+            $floor,
+            $intercome_code,
+            $delivery_date,
             $delivery_price
         ];
-
+        if (!empty($errors)) {
+            echo 'Данные не сохранены';
+            exit();
+        }
         if (($file = fopen($csvFile, 'a'))) {
             fputcsv($file, $dataRow);
             fclose($file);
@@ -29,6 +119,9 @@
         else {
             $message = 'Ошибка при сохранении данных';
         }
-        echo $message;
+        echo $message . "\n";
+        foreach ($errors as $error) {
+            echo $error . "\n";
+        }
     }
 ?>
