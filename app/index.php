@@ -43,7 +43,7 @@
         <input type="text" name="street" id="street" required>
         <br><br>
         <label for="house">Дом*</label>
-        <input type="text" name="house" id="house" required min="1">
+        <input type="number" name="house" id="house" required min="1">
         <br><br>
         <label for="entrance">Подъезд</label>
         <input type="number" name="entrance" id="entrance">
