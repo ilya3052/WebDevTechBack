@@ -9,6 +9,10 @@ const hasLetter = (str) => {
     return /[a-zA-Z]/.test(str);
 }
 
+const hasSpecial = (str) => {
+    return /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(str);
+}
+
 const client_name = document.getElementById('client_name');
 client_name.addEventListener('blur', () => {
     if (client_name.value === "" || hasNumber(client_name.value)) {
@@ -42,6 +46,18 @@ email.addEventListener('blur', () => {
 )
 email.addEventListener('focus', () => {
     document.querySelector(".email_error").innerText = "";
+}
+)
+
+const house = document.getElementById('house');
+house.addEventListener('blur', () => {
+    if (house.value === "" || (hasLetter(house.value) && !hasNumber(house.value)) ||hasSpecial(house.value)) {
+        document.querySelector(".house_error").innerText = "Укажите корректный номер дома";
+    }
+}
+)
+house.addEventListener('focus', () => {
+    document.querySelector(".house_error").innerText = "";
 }
 )
 
