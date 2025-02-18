@@ -17,7 +17,7 @@
         if (substr($phone, 0, 1) !== '7') {
             return false;
         }
-        if (strlen($phone) !== 10) {
+        if (strlen($phone) !== 11) {
             return false;
         }
         return true;
@@ -105,7 +105,10 @@
             $delivery_price
         ];
         if (!empty($errors)) {
-            echo 'Данные не сохранены';
+            echo 'Данные не сохранены' . "\n";
+            foreach ($errors as $error) {
+                echo $error . "\n";
+            }
             exit();
         }
         if (($file = fopen($csvFile, 'a'))) {
@@ -113,12 +116,6 @@
             fclose($file);
             $message = 'Даныне успешно сохранены';
         }
-        else {
-            $message = 'Ошибка при сохранении данных';
-        }
         echo $message . "\n";
-        foreach ($errors as $error) {
-            echo $error . "\n";
-        }
     }
 ?>
