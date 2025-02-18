@@ -10,7 +10,7 @@ const hasLetter = (str) => {
 }
 
 const hasSpecial = (str) => {
-    return /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(str);
+    return /[^a-zA-Z0-9]/.test(str);
 }
 
 const client_name = document.getElementById('client_name');
