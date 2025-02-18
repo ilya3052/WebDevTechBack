@@ -8,9 +8,6 @@
     function hasLetter($str) {
         return preg_match('/[a-zA-Z]/', $str) !== 1;
     }
-    function isValidEmail($email) {
-        return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
-    }
     function isValidEmailDomain($email) {
         $domain = explode('@', $email)[1];
         return in_array($domain, $white_list_email_domains);
