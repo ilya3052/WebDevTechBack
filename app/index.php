@@ -11,15 +11,18 @@
         <h3>Информация о клиенте</h3>
         <label for="client_name">ФИО клиента*</label>
         <input type="text" name="client_name" id="client_name" required maxlength=100>
+        <p class="client_name_error"></p>
         <br><br>
         <label for="client_phone">Номер телефона клиента*</label>
         <input type="tel" name="client_phone" id="client_phone" placeholder="+7(000)000-00-00" required>
         <br><br>
         <label for="client_mail">Почта клиента</label>
         <input type="email" name="client_mail" id="client_mail" placeholder="some@some.some">
+        <p class="email_error"></p>
         <h3>Курьер</h3>
         <label for="courier">ФИО курьера*</label>
         <input type="text" name="courier_name" id="courier_name" required maxlength=100>
+        <p class="courier_name_error"></p>
         <h3>Информация о товаре</h3>
         <label for="product">Товар*</label>
         <input type="text" name="product" id="product" required>
@@ -40,10 +43,10 @@
         <input type="number" name="entrance" id="entrance">
         <br><br>
         <label for="apartment">Квартира</label>
-        <input type="text" name="apartment" id="apartment" min="1">
+        <input type="number" name="apartment" id="apartment" min="1">
         <br><br>
         <label for="floor">Этаж</label>
-        <input type="text" name="floor" id="floor" min="1">
+        <input type="number" name="floor" id="floor" min="1">
         <br><br>
         <label for="intercome_code">Код домофона</label>
         <input type="text" name="intercome_code" id="intercome_code">
