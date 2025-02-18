@@ -14,6 +14,9 @@
         <label for="client">ФИО клиента</label>
         <input type="text" name="client" id="client">
         <br><br>
+        <label for="client_phone">Номер телефона клиента</label>
+        <input type="tel" name="client_phone" id="client_phone" placeholder="+7(000)000-00-00">
+        <br><br>
         <label for="client_mail">Почта клиента</label>
         <input type="email" name="client_mail" id="client_mail">
         <br><br>
