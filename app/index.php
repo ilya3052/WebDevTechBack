@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        .client_name_error, .courier_name_error, .email_error, .entrance_error, .apartment_error, .floor_error {
+            color: red;
+            margin: 0;
+        }
+    </style>
 </head>
 <body>
     <h1>Курьерская служба</h1>
@@ -12,7 +18,7 @@
         <label for="client_name">ФИО клиента*</label>
         <input type="text" name="client_name" id="client_name" required maxlength=100>
         <p class="client_name_error"></p>
-        <br><br>
+        <br>
         <label for="client_phone">Номер телефона клиента*</label>
         <input type="tel" name="client_phone" id="client_phone" placeholder="+7(000)000-00-00" required>
         <br><br>
@@ -41,13 +47,16 @@
         <br><br>
         <label for="entrance">Подъезд</label>
         <input type="number" name="entrance" id="entrance">
-        <br><br>
+        <p class="entrance_error"></p>
+        <br>
         <label for="apartment">Квартира</label>
         <input type="number" name="apartment" id="apartment" min="1">
-        <br><br>
+        <p class="apartment_error"></p>
+        <br>
         <label for="floor">Этаж</label>
         <input type="number" name="floor" id="floor" min="1">
-        <br><br>
+        <p class="floor_error"></p>
+        <br>
         <label for="intercome_code">Код домофона</label>
         <input type="text" name="intercome_code" id="intercome_code">
         <h3>Информация о доставке</h3>
