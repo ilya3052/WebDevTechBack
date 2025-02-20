@@ -36,15 +36,17 @@
         <h3>Адрес доставки</h3>
         <label for="city">Город*</label>
         <input type="text" name="city" id="city" required>
-        <br><br>
+        <p class="city_error"></p>
+        <br>
         <label for="street">Улица*</label>
         <input type="text" name="street" id="street" required>
-        <br><br>
+        <p class="street_error"></p>
+        <br>
         <label for="house">Дом*</label>
         <input type="number" name="house" id="house" required>
         <p class="house_error"></p>
         <br>
-        <label for="corpus" class="corpus">Корпус</label>
+        <label for="corpus" class="corpus">Корпус/литера</label>
         <input type="text" name="corpus" id="corpus">
         <br><br>
         <label for="entrance">Подъезд</label>
@@ -64,10 +66,12 @@
         <h3>Информация о доставке</h3>
         <label for="delivery_date">Дата доставки*</label>
         <input type="date" name="delivery_date" id="delivery_date" required>
-        <br><br>
+        <br>
+        <p class="delivery_date_error"></p>
         <label for="delivery_price">Стоимость доставки*</label>
         <input type="number" name="delivery_price" id="delivery_price" required min="1">
-        <br><br>
+        <br>
+        <p class="delivery_price_error"></p>
         <input type="submit" value="Отправить">
     </form>
     <script src="phoneinput.js"></script>
