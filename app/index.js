@@ -37,6 +37,21 @@ courier_name.addEventListener('focus', () => {
 }
 )
 
+const client_phone = document.getElementById('client_phone');
+client_phone.addEventListener('blur', () => {
+    if (client_phone.value === "" || client_phone.value.length <= 17) {
+        console.log(client_phone.value.length);
+        
+        document.querySelector(".client_phone_error").innerText = "Укажите корректный номер телефона";
+    }
+}
+)
+
+client_phone.addEventListener('focus', () => {
+    document.querySelector(".client_phone_error").innerText = "";
+}
+)
+
 const email = document.getElementById('client_mail');
 email.addEventListener('blur', () => {
     if (email.value === "" || !white_list_email_domains.includes(email.value.split("@")[1])) {
@@ -49,9 +64,33 @@ email.addEventListener('focus', () => {
 }
 )
 
+const product = document.getElementById('product');
+product.addEventListener('blur', () => {
+    if (product.value === "") {
+        document.querySelector(".product_error").innerText = "Укажите корректный товар";
+    }
+}
+)
+product.addEventListener('focus', () => {
+    document.querySelector(".product_error").innerText = "";
+}
+)
+
+const product_price = document.getElementById('product_price');
+product_price.addEventListener('blur', () => {
+    if (product_price.value === "" || product_price.value < 1) {
+        document.querySelector(".product_price_error").innerText = "Укажите корректную цену";
+    }
+}
+)
+product_price.addEventListener('focus', () => {
+    document.querySelector(".product_price_error").innerText = "";
+}
+)
+
 const house = document.getElementById('house');
-house.addEventListener('blur', () => {
-    if (house.value === "" || (hasLetter(house.value) && !hasNumber(house.value)) ||hasSpecial(house.value)) {
+house.addEventListener('blur', () => {    
+    if (house.value === "" || house.value < 1) {
         document.querySelector(".house_error").innerText = "Укажите корректный номер дома";
     }
 }
@@ -63,7 +102,8 @@ house.addEventListener('focus', () => {
 
 const entrance = document.getElementById('entrance');
 entrance.addEventListener('blur', () => {
-    if (entrance.value === "" || !hasLetter(entrance.value)) {
+    
+    if ((entrance.value.length > 1 && entrance.value < 1) || hasLetter(entrance.value)) {
         document.querySelector(".entrance_error").innerText = "Укажите корректный номер подъезда";
     }
 }
@@ -75,7 +115,7 @@ entrance.addEventListener('focus', () => {
 
 const apartment = document.getElementById('apartment');
 apartment.addEventListener('blur', () => {
-    if (apartment.value === "" || !hasLetter(apartment.value)) {
+    if (apartment.value === "" || hasLetter(apartment.value)) {
         document.querySelector(".apartment_error").innerText = "Укажите корректный номер квартиры";
     }
 }
@@ -87,7 +127,7 @@ apartment.addEventListener('focus', () => {
 
 const floor = document.getElementById('floor');
 floor.addEventListener('blur', () => {
-    if (floor.value === "" || !hasLetter(floor.value)) {
+    if (floor.value === "" || hasLetter(floor.value)) {
         document.querySelector(".floor_error").innerText = "Укажите корректный этаж";
     }
 }
@@ -96,10 +136,3 @@ floor.addEventListener('focus', () => {
     document.querySelector(".floor_error").innerText = "";
 }
 )
-
-let element = document.getElementById('client_phone');
-let maskOptions = {
-    mask: '+7(000)000-00-00',
-    lazy: false
-} 
-let mask = new IMask(element, maskOptions);

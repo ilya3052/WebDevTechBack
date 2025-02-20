@@ -4,12 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
-        .client_name_error, .courier_name_error, .email_error, .entrance_error, .apartment_error, .floor_error, .house_error, .client_phone_error {
-            color: red;
-            margin: 0;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h1>Курьерская служба</h1>
@@ -33,9 +28,11 @@
         <h3>Информация о товаре</h3>
         <label for="product">Товар*</label>
         <input type="text" name="product" id="product" required>
-        <br><br>
+        <p class="product_error"></p>
+        <br>
         <label for="product_price">Стоимость товара*</label>
         <input type="number" name="product_price" id="product_price" required min="1">
+        <p class="product_price_error"></p>
         <h3>Адрес доставки</h3>
         <label for="city">Город*</label>
         <input type="text" name="city" id="city" required>
