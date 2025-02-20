@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        .client_name_error, .courier_name_error, .email_error, .entrance_error, .apartment_error, .floor_error, .house_error {
+        .client_name_error, .courier_name_error, .email_error, .entrance_error, .apartment_error, .floor_error, .house_error, .client_phone_error {
             color: red;
             margin: 0;
         }
@@ -20,8 +20,9 @@
         <p class="client_name_error"></p>
         <br>
         <label for="client_phone">Номер телефона клиента*</label>
-        <input type="tel" name="client_phone" id="client_phone" placeholder="+7(000)000-00-00" required>
-        <br><br>
+        <input type="tel" name="client_phone" id="client_phone" data-tel-input maxlength=18 required>
+        <p class="client_phone_error"></p>
+        <br>
         <label for="client_mail">Почта клиента</label>
         <input type="email" name="client_mail" id="client_mail" placeholder="some@some.some">
         <p class="email_error"></p>
@@ -43,9 +44,12 @@
         <input type="text" name="street" id="street" required>
         <br><br>
         <label for="house">Дом*</label>
-        <input type="text" name="house" id="house" required>
+        <input type="number" name="house" id="house" required>
         <p class="house_error"></p>
         <br>
+        <label for="corpus" class="corpus">Корпус</label>
+        <input type="text" name="corpus" id="corpus">
+        <br><br>
         <label for="entrance">Подъезд</label>
         <input type="number" name="entrance" id="entrance">
         <p class="entrance_error"></p>
@@ -61,15 +65,15 @@
         <label for="intercome_code">Код домофона</label>
         <input type="text" name="intercome_code" id="intercome_code">
         <h3>Информация о доставке</h3>
-        <label for="date">Дата доставки*</label>
-        <input type="date" name="date" id="date" required>
+        <label for="delivery_date">Дата доставки*</label>
+        <input type="date" name="delivery_date" id="delivery_date" required>
         <br><br>
         <label for="delivery_price">Стоимость доставки*</label>
         <input type="number" name="delivery_price" id="delivery_price" required min="1">
         <br><br>
         <input type="submit" value="Отправить">
     </form>
-    <script src="https://unpkg.com/imask"></script>
+    <script src="phoneinput.js"></script>
     <script src="index.js"></script>
 </body>
 </html>
