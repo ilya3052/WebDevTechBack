@@ -43,12 +43,9 @@
         <p class="street_error"></p>
         <br>
         <label for="house">Дом*</label>
-        <input type="number" name="house" id="house" required>
+        <input type="text" name="house" id="house" required>
         <p class="house_error"></p>
         <br>
-        <label for="corpus" class="corpus">Корпус/литера</label>
-        <input type="text" name="corpus" id="corpus">
-        <br><br>
         <label for="entrance">Подъезд</label>
         <input type="number" name="entrance" id="entrance">
         <p class="entrance_error"></p>
