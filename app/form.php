@@ -16,25 +16,14 @@
     function isValidEmailDomain($email) {
         $domain = explode('@', $email)[1];
         return in_array($domain, $white_list_email_domains);
-    }
-
-    function isValidPhoneNumber($phone) {
-        $phone = preg_replace('/\D/', '', $phone);
-        if (substr($phone, 0, 1) !== '7') {
-            return false;
-        }
-        if (strlen($phone) !== 11) {
-            return false;
-        }
-        return true;
-    }            
+    }         
 ?>
 
 
 <?php
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $client_name = trim($_POST['client_name'] ?? '');
-        $client_phone = trim($_POST['client_phone'] ?? '');
+        $client_phone = str_replace([' ', '(', ')', '-'], '', trim($_POST['client_phone'] ?? ''));
         $client_mail = trim($_POST['client_mail'] ?? '');
         $courier_name = trim($_POST['courier_name'] ?? '');
 
@@ -56,14 +45,14 @@
         if (empty($client_name) || strlen($client_name) > 100 || hasNumber($client_name)) {
             $errors[] = 'Укажите корректное имя клиента';
         }
-        if (empty($client_phone) || !isValidPhoneNumber($client_phone)) {
+        if (empty($client_phone) || strlen($client_phone) < 11) {
             $errors[] = 'Укажите корректный номер телефона';
         }
         if (empty($courier_name) || strlen($courier_name) > 100 || hasNumber($courier_name)) {
-            $errors[] = 'Укажите имя курьера';
+            $errors[] = 'Укажите корректное имя курьера';
         }
         if (empty($product)) {
-            $errors[] = 'Укажите название товара';
+            $errors[] = 'Укажите коректное название товара';
         }
         if (empty($product_price) || hasLetter($product_price) || $product_price < 1) {
             $errors[] = 'Укажите корректную цену';
@@ -74,22 +63,22 @@
         if (empty($street)) {
             $errors[] = 'Укажите улицу';
         }   
-        if (empty($house) || (hasLetter($house) && !hasNumber($house)) || hasSpecial($house)) {
-            $errors[] = 'Укажите номер дома';
+        if (empty($house) || hasLetter($house[0]) || !hasNumber($house) || hasSpecial($house[0])) {
+            $errors[] = 'Укажите корректный номер дома';
         }   
-        if ((strlen($entrance) > 0 && $entrance < 1) || hasLetter($entrance)) {
+        if ((strlen($entrance) > 0 && $entrance < 1) || hasLetter($entrance) || hasSpecial($entrance)) {
             $errors[] = 'Укажите корректный номер подъезда';
         }
-        if ((strlen($apartment) > 0 && $apartment < 1) || hasLetter($apartment)) {
+        if ((strlen($apartment) > 0 && $apartment < 1) || hasLetter($apartment) || hasSpecial($apartment)) {
             $errors[] = 'Укажите корректный номер квартиры';
         }
-        if ((strlen($floor) > 0 && $floor < 1) || hasLetter($floor)) {
+        if ((strlen($floor) > 0 && $floor < 1) || hasLetter($floor) || hasSpecial($floor)) {
             $errors[] = 'Укажите корректный этаж';
         }
         if (empty($delivery_date)) {
             $errors[] = 'Укажите дату доставки';
         }
-        if (empty($delivery_price) || $delivery_price < 1 || hasLetter($delivery_price)) {
+        if (empty($delivery_price) || $delivery_price < 1 || hasLetter($delivery_price) || hasSpecial($delivery_price)) {
             $errors[] = 'Укажите корректную цену доставки';
         }
         $csvFile = 'data.csv';
