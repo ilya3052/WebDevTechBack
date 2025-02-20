@@ -109,7 +109,7 @@
         if (($file = fopen($csvFile, 'a'))) {
             fputcsv($file, $dataRow);
             fclose($file);
-            $message = 'Даныне успешно сохранены';
+            $message = 'Данные успешно сохранены';
         }
         echo $message . "\n";
     }
