@@ -1,6 +1,3 @@
-const white_list_email_domains = ["yandex.ru", "yandex.by", "yandex.kz", "ya.ru", "mail.ru", "internet.ru", "list.ru", "bk.ru", "inbox.ru", "vk.com", 
-    "rambler.ru"];
-
 const hasNumber = (str) => {
     return /\d/.test(str);
 }
@@ -11,6 +8,15 @@ const hasLetter = (str) => {
 
 const hasSpecial = (str) => {
     return /[^a-zA-Z0-9а-яА-Я]/u.test(str);
+}
+
+const validateEmail = (domain) => {
+    fecth("white_list_email_domains.txt")
+        .then(content => {
+            if (content.includes(domain)) {
+                return true;
+            }
+    })
 }
 
 const fields = [
