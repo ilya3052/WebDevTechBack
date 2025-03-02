@@ -51,7 +51,7 @@
         <p class="entrance_error"></p>
         <br>
         <label for="apartment">Квартира</label>
-        <input type="number" name="apartment" id="apartment" min="1">
+        <input type="text" name="apartment" id="apartment">
         <p class="apartment_error"></p>
         <br>
         <label for="floor">Этаж</label>
