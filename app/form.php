@@ -70,7 +70,7 @@
             $errors[] = 'Укажите улицу';
         } 
 
-        if (empty($house) || hasLetter($house[0]) || !hasNumber($house) || hasSpecial($house[0])) {
+        if (empty($house) || !is_numeric($house[0]) || !hasNumber($house) || hasSpecial($house[0])) {
             $errors[] = 'Укажите корректный номер дома';
         }  
 
@@ -78,7 +78,7 @@
             $errors[] = 'Укажите корректный номер подъезда';
         }
 
-        if ((strlen($apartment) > 0 && $apartment < 1) || hasLetter($apartment) || hasSpecial($apartment)) {
+        if (empty($apartment) || hasLetter($apartment) || !hasNumber($apartment) || hasSpecial($apartment[0])) {
             $errors[] = 'Укажите корректный номер квартиры';
         }
 

@@ -30,7 +30,7 @@ const fields = [
     { id: "street", errorClass: "street_error", validate: (v) => v === "", msg: "Укажите корректную улицу" },
     { id: "house", errorClass: "house_error", validate: (v) => v === "" || hasLetter(v[0]) || hasSpecial(v[0]) || v < 1, msg: "Укажите корректный номер дома" },
     { id: "entrance", errorClass: "entrance_error", validate: (v) => (v.length > 0 && v < 1) || hasLetter(v), msg: "Укажите корректный номер подъезда" },
-    { id: "apartment", errorClass: "apartment_error", validate: (v) => (v.length > 0 && v < 1) || hasLetter(v), msg: "Укажите корректный номер квартиры" },
+    { id: "apartment", errorClass: "apartment_error", validate: (v) => v === "" || hasLetter(v) || hasSpecial(v[0]) || v < 1, msg: "Укажите корректный номер квартиры" },
     { id: "floor", errorClass: "floor_error", validate: (v) => (v.length > 0 && v < 1) || hasLetter(v), msg: "Укажите корректный номер этажа" },
     { id: "delivery_date", errorClass: "delivery_date_error", validate: (v) => v === "", msg: "Укажите корректную дату доставки"},
     { id: "delivery_price", errorClass: "delivery_price_error", validate: (v) => v === "" || v < 1, msg: "Укажите корректную стоимость доставки" }
