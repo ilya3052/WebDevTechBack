@@ -20,7 +20,7 @@
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $client_name = trim($_POST['client_name'] ?? '');
-        $client_phone = str_replace([' ', '(', ')', '-'], '', trim($_POST['client_phone'] ?? ''));
+        $client_phone = str_replace([' ', '(', ')', '-', '+'], '', trim($_POST['client_phone'] ?? ''));
         $client_mail = trim($_POST['client_mail'] ?? '');
         $courier_name = trim($_POST['courier_name'] ?? '');
         $product = trim($_POST['product'] ?? '');
@@ -32,7 +32,7 @@
         $apartment = trim($_POST['apartment'] ?? '');
         $floor = trim($_POST['floor'] ?? '');
         $intercome_code = trim($_POST['intercome_code'] ?? '');
-        $delivery_date = trim($_POST['delivery_date'] ?? '');
+        $delivery_date = date('Y-m-d', strtotime(trim($_POST['delivery_date'] ?? '')));
         $delivery_price = trim($_POST['delivery_price'] ?? '');
 
         $errors = [];
