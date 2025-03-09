@@ -8,7 +8,7 @@
     while (($row = fgetcsv($file, 1000, ','))) {
         $data = array_combine($headers, $row);
 
-        $stmt = $pdo->prepare("INSERT INTO client (cilent_fullname, client_phonenumber, client_mail) VALUES (?, ?, ?)");
+        $stmt = $pdo->prepare("INSERT INTO client (client_fullname, client_phonenumber, client_mail) VALUES (?, ?, ?)");
         $stmt->execute([$data["client_name"], $data["client_phone"], $data["client_mail"]]);
         $client_id = $pdo->lastInsertId();
 
