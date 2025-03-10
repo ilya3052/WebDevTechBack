@@ -78,7 +78,7 @@
             $errors[] = 'Укажите корректный номер подъезда';
         }
 
-        if (empty($apartment) || hasLetter($apartment) || !hasNumber($apartment) || hasSpecial($apartment[0])) {
+        if (hasLetter($apartment) || !hasNumber($apartment) || hasSpecial($apartment[0])) {
             $errors[] = 'Укажите корректный номер квартиры';
         }
 
