@@ -1,34 +1,37 @@
 services:
-  web:
-    build:
-      context: ./app
-      dockerfile: Dockerfile
-    ports:
-      - "911:80"
+  php:
+    build: .
+    container_name: php_app
     volumes:
-      - ./app:/var/www/html
+      - .:/var/www/html
     depends_on:
-      - db
-  db:
+      - mysql
+    ports:
+      - "8087:80"
+
+  mysql:
     image: mysql:8.0
+    container_name: mysql_db
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: rootpass
-      MYSQL_DATABASE: mydb
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: my_database
       MYSQL_USER: user
-      MYSQL_PASSWORD: userpass
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
     volumes:
-      - db_data:/var/lib/mysql
+      - mysql_data:/var/lib/mysql
+
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
     restart: always
     ports:
-      - "8180:80"
+      - "8081:80"
     environment:
-      PMA_HOST: db
-      MYSQL_ROOT_PASSWORD: rootpass
-    depends_on:
-      - db
+      PMA_HOST: mysql
+      MYSQL_ROOT_PASSWORD: root
 
 volumes:
-  db_data: 
+  mysql_data:
