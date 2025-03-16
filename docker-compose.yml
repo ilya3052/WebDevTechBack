@@ -32,6 +32,5 @@ services:
     environment:
       PMA_HOST: mysql
       MYSQL_ROOT_PASSWORD: root
-
 volumes:
   mysql_data:
