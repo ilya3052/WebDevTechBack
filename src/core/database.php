@@ -7,7 +7,7 @@
     class Database {
         private static ?PDO $pdo = null;
 
-        public function connect(): PDO {
+        public static function connect(): PDO {
             if (self::$pdo == null) {
                 $config = parse_ini_file(__DIR__, '/../../.env');
                 try {
