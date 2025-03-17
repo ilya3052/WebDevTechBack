@@ -5,11 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Курьерская служба</title>
-    <link rel="stylesheet" href="/public/assets/style.css">
+    <link href="{{ data.styles  }}" rel="stylesheet">
 </head>
 
 <body>
     <h2>Список доставок</h2>
+    
     <table>
         <tr>
             <th>ID доставки</th>
@@ -25,7 +26,7 @@
             <th>Дата доставки</th>
             <th>Стоимость доставки</th>
         </tr>
-        {% for delivery in deliveries %}
+        {% for delivery in data.deliveries %}
             <tr>
                 <td>{{ delivery.delivery_number }}</td>
                 <td>{{ delivery.client_fullname }}</td>
@@ -105,10 +106,10 @@
         <input type="number" name="delivery_price" id="delivery_price" required min="1">
         <br>
         <p class="delivery_price_error"></p>
-        <input type="submit" value="Отправить">
+        <input type="submit" id="submit" value="Отправить">
     </form>
-    <script src="/public/assets/phoneinput.js"></script>
-    <script src="/public/assets/index.js"></script>
+    <script src="{{data.phone_script}}"></script>
+    <script src="{{data.main_script}}"></script>
 </body>
 
 </html>
