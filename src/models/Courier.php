@@ -13,7 +13,7 @@
 
         //добавляет курьера в базу
         public function addCourier(string $courier_name): int {
-            $stmt = $this->pdo->prepare("INSERT INTO client (courier_name) VALUES (:courier_name)");
+            $stmt = $this->pdo->prepare("INSERT INTO courier (courier_fullname) VALUES (:courier_name)");
             $stmt->execute([
                 'courier_name' => htmlspecialchars($courier_name)
             ]);
