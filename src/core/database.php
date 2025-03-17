@@ -9,10 +9,10 @@
 
         public static function connect(): PDO {
             if (self::$pdo == null) {
-                $config = parse_ini_file(__DIR__, '/../../.env');
+                $config = parse_ini_file(__DIR__ . '/../../.env');
                 try {
                     self::$pdo = new PDO(
-                        "mysql:host={$config['DB_HOST']};dbname={$config['DB_NAME']};charset=utf-8",
+                        "mysql:host={$config['DB_HOST']};dbname={$config['DB_NAME']};charset=utf8",
                         $config['DB_USER'],
                         $config['DB_PASS'],
                         [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
