@@ -17,7 +17,10 @@ class Delivery
 
     public function getAll()
     {
-        $stmt = $this->pdo->query("SELECT * FROM delivery");
+        $stmt = $this->pdo->query("SELECT 
+            delivery_number, client_fullname, courier_fullname, delivery_city, delivery_street, delivery_house, 
+            delivery_entrance, delivery_apartment, delivery_floor, delivery_intercome_code, delivery_date, delivery_price 
+        FROM delivery d join client cl on d.client_id = cl.client_id join courier cr on d.courier_id = cr.courier_id");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     public function addDelivery()
