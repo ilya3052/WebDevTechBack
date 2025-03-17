@@ -1,12 +1,12 @@
 services:
   web:
     build:
-      context: ./dockerfiles
+      context: /dockerfiles
       dockerfile: php.Dockerfile
     ports:
       - "911:80"
     volumes:
-      - ./app:/var/www/html
+      - .:/var/www/html
     depends_on:
       - db
   db:
@@ -31,7 +31,7 @@ services:
       - db
   composer:
     build:
-      context: ./dockerfiles
+      context: /dockerfiles
       dockerfile: composer.Dockerfile
     volumes:
       - .:/var/www/html
