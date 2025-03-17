@@ -5,6 +5,28 @@ namespace App\models;
 use App\core\database;
 use PDO;
 
+$white_list_email_domains = file_get_contents("white_list_email_domains.txt");
+function hasNumber($str)
+{
+    return preg_match('/\d/', $str);
+}
+
+function hasLetter($str)
+{
+    return preg_match('/[a-zA-Zа-яА-Я]/u', $str);
+}
+
+function hasSpecial($str)
+{
+    return preg_match('/[^a-zA-Z0-9а-яА-Я]/u', $str);
+}
+
+function isValidEmailDomain($email)
+{
+    global $white_list_email_domains;
+    $domain = explode('@', $email)[1];
+    return str_contains($white_list_email_domains, $domain);
+}
 class Delivery
 {
     private $pdo;
@@ -53,7 +75,7 @@ class Delivery
             $this->errors[] = 'Укажите корректное имя курьера';
         }
 
-        if (empty($client_mail) || !isValidEmailDomain($client_mail)) {
+        if (strlen($client_mail) > 0 && !isValidEmailDomain($client_mail)) {
             $this->errors[] = "Укажите корректный адрес электронной почты";
         }
 
@@ -101,7 +123,7 @@ class Delivery
 
         // добавляем клиента (покупателя)
         $client = new Client();
-        $client_id = $client->addClient($client_name, $client_phone, $client_mail);
+        $client_id = $client->addClient($client_name, $client_phone, empty($client_mail) ? NULL : $client_mail);
 
         // добавляем курьера
         $courier = new Courier();
