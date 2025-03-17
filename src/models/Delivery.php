@@ -5,7 +5,6 @@ namespace App\models;
 use App\core\database;
 use PDO;
 
-$white_list_email_domains = file_get_contents("white_list_email_domains.txt");
 function hasNumber($str)
 {
     return preg_match('/\d/', $str);
@@ -23,7 +22,7 @@ function hasSpecial($str)
 
 function isValidEmailDomain($email)
 {
-    global $white_list_email_domains;
+    $white_list_email_domains = file_get_contents(__DIR__ . "/../../public/assets/white_list_email_domains.txt");
     $domain = explode('@', $email)[1];
     return str_contains($white_list_email_domains, $domain);
 }
@@ -57,7 +56,7 @@ class Delivery
         string $house,
         ?string $entrance,
         ?string $apartment,
-        ?int $floor,
+        ?string $floor,
         ?string $intercome_code,
         string $delivery_date,
         float $delivery_price
@@ -141,22 +140,25 @@ class Delivery
             ) VALUES (:client_id, :courier_id, :delivery_city, :delivery_street, :delivery_house, :delivery_entrance, 
                 :delivery_apartment, :delivery_floor, :delivery_intercome_code, :delivery_date, :delivery_price)");
         $stmt->execute([
-            $client_id,
-            $courier_id,
-            $city,
-            $street,
-            $house,
-            empty($entrance) ? NULL : $entrance,
-            empty($apartment) ? NULL : $apartment,
-            empty($floor) ? NULL : $floor,
-            empty($intercome_code) ? NULL : $intercome_code,
-            $delivery_date,
-            $delivery_price
+            'client_id' => $client_id,
+            'courier_id' => $courier_id,
+            'delivery_city' => $city,
+            'delivery_street' => $street,
+            'delivery_house' => $house,
+            'delivery_entrance' => empty($entrance) ? NULL : $entrance,
+            'delivery_apartment' => empty($apartment) ? NULL : $apartment,
+            'delivery_floor' => empty($floor) ? NULL : $floor,
+            'delivery_intercome_code' => empty($intercome_code) ? NULL : $intercome_code,
+            'delivery_date' => $delivery_date,
+            'delivery_price' => $delivery_price
         ]);
         $delivery_number = $this->pdo->lastInsertId();
 
         // связываем товар с доставкой
         $stmt = $this->pdo->prepare("INSERT INTO included (product_article, delivery_number) VALUES (:product_article, :delivery_number)");
-        $stmt->execute([$article, $delivery_number]);
+        $stmt->execute([
+            'product_article' => $article,
+            'delivery_number' => $delivery_number
+        ]);
     }
 }
