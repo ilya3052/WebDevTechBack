@@ -11,12 +11,6 @@
             $this->pdo = database::connect();
         }
 
-        public function getAll(): array {
-            $stmt = $this->pdo->query("SELECT * FROM client");
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        }
-
-
         //добавляет клиента в базу
         public function addClient(string $client_fullname, string $client_phonenumbmer, string $client_mail): int {
             $stmt = $this->pdo->prepare("INSERT INTO client (client_fullname, client_phonenumber, client_mail) VALUES (:client_fullname, :client_phonenumber, :client_mail)");
