@@ -4,6 +4,7 @@ require __DIR__ . '/../vendor/autoload.php';
 use App\core\Router;
 use App\controllers\DeliveryController;
 use App\controllers\HomeController;
+use App\controllers\ReportController;
 use App\controllers\UserController;
 
 $delivery = new DeliveryController();
@@ -11,6 +12,8 @@ $delivery = new DeliveryController();
 $home = new HomeController();
 
 $user = new UserController();
+
+$report = new ReportController();
 
 $router = new Router();
 
@@ -28,6 +31,8 @@ $router->get('/profile', [$user, 'profile']);
 $router->get('/deliveries', [$delivery, 'index']);
 
 $router->post('/deliveries/add', [$delivery, 'store']);
+
+$router->get('/report', [$report, 'generateReport']);
 
 $router->resolve();
 ?>

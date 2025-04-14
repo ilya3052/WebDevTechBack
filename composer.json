@@ -1,6 +1,9 @@
 {
   "require": {
-    "twig/twig": "^3.20"
+    "twig/twig": "^3.20",
+    "fawno/fpdf": "*",
+    "phpoffice/phpspreadsheet": "*",
+    "setasign/fpdf": "^1.8"
   },
   "autoload": {
     "psr-4": {
