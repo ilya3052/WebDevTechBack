@@ -3,37 +3,30 @@
 namespace App\controllers;
 
 use App\models\Delivery;
-
 use Twig\Environment;
-
 use Twig\Loader\FilesystemLoader;
 
 class DeliveryController
 {
     private Delivery $deliveryModel;
-
-    // Приватное свойство для работы с шаблонизатором Twig
     private Environment $twig;
-    // Конструктор класса, вызывается при создании объекта UserController
+
     public function __construct()
     {
-        // Создаёт объект модели User для взаимодействия с базой данных
         $this->deliveryModel = new Delivery();
-
-        // Создаёт загрузчик шаблонов Twig, указывая путь к папке views
         $loader = new FilesystemLoader(__DIR__ . '/../views');
-
-        // Создаёт объект Twig для рендеринга шаблонов
         $this->twig = new Environment($loader);
     }
 
-    // Метод для обработки запроса GET /deliveries
     public function index(): void
     {
-        // Получает список всех пользователей из базы данных
-        $deliveries = $this->deliveryModel->getAll();
+        if (!isset($_SESSION['user_id'])) {
+            header("Location: /login");
+            exit;
+        }
 
-        // Рендерит шаблон users.twig и передаёт в него массив с доставками
+        $deliveries = $this->deliveryModel->getAll($_SESSION['client_id']);
+        
         echo $this->twig->render('delivery.twig', [
             'data' => [
                 'deliveries' => $deliveries,
@@ -44,17 +37,18 @@ class DeliveryController
         ]);
     }
 
-    // Метод для обработки запроса POST /deliveries/add (добавление доставки)
     public function store(): void
     {
-        // Проверяет, что запрос был отправлен методом POST
+        if (!isset($_SESSION['user_id'])) {
+            header("Location: /login");
+            exit;
+        }
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $client_name = trim($_POST['client_name'] ?? '');
-            $client_phone = str_replace([' ', '(', ')', '-', '+'], '', trim($_POST['client_phone'] ?? ''));
-            $client_mail = trim($_POST['client_mail'] ?? '');
+            $client_id = $_SESSION['client_id'];
             $courier_name = trim($_POST['courier_name'] ?? '');
             $product = trim($_POST['product'] ?? '');
-            (float) $product_price = trim($_POST['product_price'] ?? '');
+            $product_price = (float)trim($_POST['product_price'] ?? '');
             $city = trim($_POST['city'] ?? '');
             $street = trim($_POST['street'] ?? '');
             $house = trim($_POST['house'] ?? '');
@@ -63,12 +57,10 @@ class DeliveryController
             $floor = trim($_POST['floor'] ?? '');
             $intercome_code = trim($_POST['intercome_code'] ?? '');
             $delivery_date = date('Y-m-d', strtotime(trim($_POST['delivery_date'] ?? '')));
-            (float) $delivery_price = trim($_POST['delivery_price'] ?? '');
+            $delivery_price = (float)trim($_POST['delivery_price'] ?? '');
 
             $this->deliveryModel->addDelivery(
-                $client_name,
-                $client_phone,
-                $client_mail,
+                $client_id,
                 $courier_name,
                 $product,
                 $product_price,
@@ -83,7 +75,8 @@ class DeliveryController
                 $delivery_price
             );
         }
-        // Перенаправляет пользователя обратно на страницу /users после добавления
+
         header("Location: /deliveries");
+        exit;
     }
 }

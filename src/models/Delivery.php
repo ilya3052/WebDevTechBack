@@ -36,18 +36,17 @@ class Delivery
         $this->pdo = database::connect();
     }
 
-    public function getAll()
+    public function getAll($client_id)
     {
-        $stmt = $this->pdo->query("SELECT 
+        $stmt = $this->pdo->prepare("SELECT 
             delivery_number, client_fullname, courier_fullname, delivery_city, delivery_street, delivery_house, 
             delivery_entrance, delivery_apartment, delivery_floor, delivery_intercome_code, delivery_date, delivery_price 
-        FROM delivery d join client cl on d.client_id = cl.client_id join courier cr on d.courier_id = cr.courier_id");
+        FROM delivery d join client cl on d.client_id = cl.client_id join courier cr on d.courier_id = cr.courier_id where d.client_id = ?");
+        $stmt->execute([$client_id]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     public function addDelivery(
-        string $client_name,
-        string $client_phone,
-        string $client_mail,
+        int $client_id,
         string $courier_name,
         string $product_name,
         float $product_price,
@@ -72,10 +71,6 @@ class Delivery
 
         if (empty($courier_name) || strlen($courier_name) > 100 || hasNumber($courier_name)) {
             $this->errors[] = 'Укажите корректное имя курьера';
-        }
-
-        if (strlen($client_mail) > 0 && !isValidEmailDomain($client_mail)) {
-            $this->errors[] = "Укажите корректный адрес электронной почты";
         }
 
         if (empty($product_name)) {
@@ -120,9 +115,9 @@ class Delivery
             $this->errors[] = 'Укажите корректную цену доставки';
         }
 
-        // добавляем клиента (покупателя)
-        $client = new Client();
-        $client_id = $client->addClient($client_name, $client_phone, empty($client_mail) ? NULL : $client_mail);
+        // // добавляем клиента (покупателя)
+        // $client = new Client();
+        // $client_id = $client->addClient($client_name, $client_phone, empty($client_mail) ? NULL : $client_mail);
 
         // добавляем курьера
         $courier = new Courier();
@@ -131,7 +126,6 @@ class Delivery
         // добавляем товар
         $product = new Product();
         $article = $product->addProduct($product_name, $product_price);
-
         // создаем запись о доставке
         $stmt = $this->pdo->prepare("
             INSERT INTO delivery (

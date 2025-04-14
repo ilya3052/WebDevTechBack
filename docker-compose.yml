@@ -29,12 +29,6 @@ services:
       MYSQL_ROOT_PASSWORD: rootpass
     depends_on:
       - db
-  composer:
-    build:
-      context: /dockerfiles
-      dockerfile: composer.Dockerfile
-    volumes:
-      - .:/var/www/html
 
 volumes:
   db_data: 
