@@ -19,7 +19,7 @@
                 'client_phonenumber' => $client_phonenumbmer,
                 'client_mail' => filter_var($client_mail, FILTER_SANITIZE_EMAIL)
             ]);
-            return $this->pdo->lastInsertId();
+            return $this->pdo->lastInsertId(); 
         }        
     }
 ?>
